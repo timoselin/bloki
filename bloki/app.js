@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
+require('./models/Users');
+require('./config/passport');
+
 mongoose.connect('mongodb://dev:dev@ds159377.mlab.com:59377/ploki');
+var passport = require('passport');
 
 var express = require('express');
 var path = require('path');
@@ -26,6 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', index);
 app.use('/users', users);
